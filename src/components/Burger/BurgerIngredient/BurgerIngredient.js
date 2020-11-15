@@ -5,12 +5,11 @@ import PropTypes from 'prop-types';
 class BurgerIngredient extends Component{
     render (){
         let ingredient = null;
-
         switch (this.props.type) {
-            case ('breath-bottom'):
+            case ('bread-bottom'):
                 ingredient = <div className={classes.BreadBottom}></div>;
                 break;
-            case ('breath-top'):
+            case ('bread-top'):
                 ingredient = ( //jsx multilinea
                     <div className={classes.BreadTop}>
                         <div className={classes.Seeds1}></div>
@@ -33,9 +32,11 @@ class BurgerIngredient extends Component{
             default:
                 ingredient = null;
         }
+
+        return ingredient;
     };
 }
-//type validation
+//validation tu
 BurgerIngredient.propTypes = {
     type: PropTypes.string.isRequired
 }
