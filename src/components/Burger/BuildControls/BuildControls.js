@@ -10,8 +10,14 @@ const controlls =[
 const buildControls = (props) =>{
     return(
         <div className={classes.BuildControls}>
+            <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
             {controlls.map(control =>(
-                <BuildControl key={control.label} label={control.label} />
+                <BuildControl 
+                    key={control.label} 
+                    label={control.label}
+                    added={() => props.ingredientAdded(control.type)} /* callback a funcion para agregar ingrediente que recibe el type de ingrediente */
+                    removed={()=> props.ingredientRemoved(control.type)}/* callback a funcion para remueve ingrediente que recibe el type de ingrediente */
+                    disabled = {props.disabled[control.type]}/>//chequea si el tipo esta deshabilitado ej {salad : true}
             ))}
         </div>
     );
