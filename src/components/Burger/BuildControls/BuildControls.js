@@ -19,6 +19,7 @@ const buildControls = (props) =>{
                     removed={()=> props.ingredientRemoved(control.type)}/* callback a funcion para remueve ingrediente que recibe el type de ingrediente */
                     disabled = {props.disabled[control.type]}/>//chequea si el tipo esta deshabilitado ej {salad : true}
             ))}
+            <button className={classes.OrderButton} disabled={!props.purcheasable} >ORDER NOW</button>
         </div>
     );
 }

@@ -24,8 +24,21 @@ class BurgerBulder extends Component{
             cheese: 0,
             meat: 0,
         },
-        totalPrice: 4
+        totalPrice: 4,
+        purcheaseable: false
     };
+
+    //recibe el objeto ingredientes y lo mapea a un arreglo de enteros para sumarlos y saber si puede comprar la hamburguesa
+    updatePurchaseState(ingredients) {
+        const sum = Object.keys(ingredients)
+            .map(key => {
+                return ingredients[key];
+            })
+            .reduce((sum, el) => {
+                return sum + el;
+            }, 0);
+        this.setState({purcheaseable: sum > 0});
+    }
 
     addIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
@@ -42,6 +55,7 @@ class BurgerBulder extends Component{
         const newPrice = oldPrice + priceAddition;
         //actualizo estado con las copias actualizadas
         this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
+        this.updatePurchaseState(updatedIngredients);
     }
 
     removeIngredientHandler = (type)=>{
@@ -64,6 +78,7 @@ class BurgerBulder extends Component{
         const newPrice = oldPrice - priceDeduction;
         //actualizo estado con las copias actualizadas
         this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
+        this.updatePurchaseState(updatedIngredients);
     }
 
     render(){
@@ -82,6 +97,7 @@ class BurgerBulder extends Component{
                 <BuildControls
                     ingredientAdded={this.addIngredientHandler}
                     ingredientRemoved = {this.removeIngredientHandler}
+                    purcheasable={this.state.purcheaseable}
                     disabled = {disabledInfo}
                     price = {this.state.totalPrice}
                 />
