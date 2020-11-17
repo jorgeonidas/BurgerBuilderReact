@@ -92,6 +92,10 @@ class BurgerBulder extends Component{
         this.setState({purchasing: false});
     }
 
+    purchaseContinueHandler = ()=>{
+        alert('You Continue!');
+    }
+
     render(){
         //creo un objeto copiando los valores de los ingrdientes
         const disabledInfo = {
@@ -102,19 +106,23 @@ class BurgerBulder extends Component{
             disabledInfo[key] = disabledInfo[key] <= 0
         }
 
-        return(
+        return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary ingredients={this.state.ingredients}/>
-                    </Modal>
-                <Burger ingredients={this.state.ingredients}/>
+                    <OrderSummary ingredients={this.state.ingredients} 
+                        purchaseCanceled = {this.purchaseCancelHandler}
+                        purchaseContinue = {this.purchaseContinueHandler}
+                        price = {this.state.totalPrice}
+                        />
+                </Modal>
+                <Burger ingredients={this.state.ingredients} />
                 <BuildControls
                     ingredientAdded={this.addIngredientHandler}
-                    ingredientRemoved = {this.removeIngredientHandler}
+                    ingredientRemoved={this.removeIngredientHandler}
                     purcheasable={this.state.purcheaseable}
-                    disabled = {disabledInfo}
-                    price = {this.state.totalPrice}
-                    ordered = {this.purchaseHandler}
+                    disabled={disabledInfo}
+                    price={this.state.totalPrice}
+                    ordered={this.purchaseHandler}
                 />
             </Aux>
         );
